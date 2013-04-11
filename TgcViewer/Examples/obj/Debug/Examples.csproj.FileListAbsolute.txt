@@ -1,0 +1,17 @@
+C:\Users\pc\Documents\TgcViewer\Examples\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\pc\Documents\TgcViewer\Examples\obj\Debug\Examples.MeshCreator.MeshCreatorControl.resources
+C:\Users\pc\Documents\TgcViewer\Examples\obj\Debug\Examples.Otros.EjemploDefaultHelpForm.resources
+C:\Users\pc\Documents\TgcViewer\Examples\obj\Debug\Examples.Properties.Resources.resources
+C:\Users\pc\Documents\TgcViewer\Examples\obj\Debug\Examples.RoomsEditor.RoomsEditorControl.resources
+C:\Users\pc\Documents\TgcViewer\Examples\obj\Debug\Examples.RoomsEditor.RoomsEditorHelpWindow.resources
+C:\Users\pc\Documents\TgcViewer\Examples\obj\Debug\Examples.RoomsEditor.RoomsEditorMapView.resources
+C:\Users\pc\Documents\TgcViewer\Examples\obj\Debug\Examples.RoomsEditor.RoomsEditorTexturesEdit.resources
+C:\Users\pc\Documents\TgcViewer\Examples\obj\Debug\GenerateResource.read.1.tlog
+C:\Users\pc\Documents\TgcViewer\Examples\obj\Debug\GenerateResource.write.1.tlog
+C:\Users\pc\Documents\TgcViewer\Examples\obj\Debug\Examples.dll
+C:\Users\pc\Documents\TgcViewer\Examples\obj\Debug\Examples.pdb
+C:\Users\pc\Documents\TgcViewer\Examples\Examples.dll
+C:\Users\pc\Documents\TgcViewer\Examples\Examples.pdb
+C:\Users\pc\Documents\TgcViewer\Examples\Ionic.Zip.dll
+C:\Users\pc\Documents\TgcViewer\Examples\TgcViewer.exe
+C:\Users\pc\Documents\TgcViewer\Examples\TgcViewer.pdb

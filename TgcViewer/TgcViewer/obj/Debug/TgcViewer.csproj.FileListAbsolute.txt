@@ -1,0 +1,17 @@
+C:\Users\pc\Documents\TgcViewer\TgcViewer.exe.config
+C:\Users\pc\Documents\TgcViewer\TgcViewer\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\pc\Documents\TgcViewer\TgcViewer\obj\Debug\TgcViewer.MainForm.resources
+C:\Users\pc\Documents\TgcViewer\TgcViewer\obj\Debug\TgcViewer.Properties.Resources.resources
+C:\Users\pc\Documents\TgcViewer\TgcViewer\obj\Debug\TgcViewer.Utils.Modifiers.TgcMeshBrowser.resources
+C:\Users\pc\Documents\TgcViewer\TgcViewer\obj\Debug\TgcViewer.Utils.Modifiers.TgcTextureBrowser.resources
+C:\Users\pc\Documents\TgcViewer\TgcViewer\obj\Debug\TgcViewer.Utils.Networking.TgcNetworkingModifierClientsDialog.resources
+C:\Users\pc\Documents\TgcViewer\TgcViewer\obj\Debug\TgcViewer.Utils.Networking.TgcNetworkingModifierControl.resources
+C:\Users\pc\Documents\TgcViewer\TgcViewer\obj\Debug\TgcViewer.Utils.Networking.TgcNetworkingModifierServersDialog.resources
+C:\Users\pc\Documents\TgcViewer\TgcViewer\obj\Debug\TgcViewer.Utils.Ui.AboutWindow.resources
+C:\Users\pc\Documents\TgcViewer\TgcViewer\obj\Debug\TgcViewer.Utils.Ui.FullScreenPanel.resources
+C:\Users\pc\Documents\TgcViewer\TgcViewer\obj\Debug\GenerateResource.read.1.tlog
+C:\Users\pc\Documents\TgcViewer\TgcViewer\obj\Debug\GenerateResource.write.1.tlog
+C:\Users\pc\Documents\TgcViewer\TgcViewer\obj\Debug\TgcViewer.exe
+C:\Users\pc\Documents\TgcViewer\TgcViewer\obj\Debug\TgcViewer.pdb
+C:\Users\pc\Documents\TgcViewer\TgcViewer.exe
+C:\Users\pc\Documents\TgcViewer\TgcViewer.pdb
