@@ -87,7 +87,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MiGrupo\Ball.cs" />
+    <Compile Include="MiGrupo\BulletsAdons\BulletAddon.cs" />
+    <Compile Include="MiGrupo\BulletsAdons\ExplosiveBullet.cs" />
+    <Compile Include="MiGrupo\BulletsAdons\ExtraFragmentsBullet.cs" />
+    <Compile Include="MiGrupo\BulletsAdons\FireBullet.cs" />
+    <Compile Include="MiGrupo\BulletsAdons\PenetratingBullet.cs" />
+    <Compile Include="MiGrupo\BulletsAdons\SpeedBullet.cs" />
+    <Compile Include="MiGrupo\Colisionable.cs" />
+    <Compile Include="MiGrupo\Drawable.cs" />
     <Compile Include="MiGrupo\EjemploAlumno.cs" />
+    <Compile Include="MiGrupo\Gun.cs" />
+    <Compile Include="MiGrupo\RealColisionable.cs" />
+    <Compile Include="MiGrupo\ShootTechniques\ShootgunShoot.cs" />
+    <Compile Include="MiGrupo\ShootTechniques\ShootTechnique.cs" />
+    <Compile Include="MiGrupo\ShootTechniques\SimpleShoot.cs" />
+    <Compile Include="MiGrupo\TgcFpsCameraReloaded.cs" />
+    <Compile Include="MiGrupo\Wall.cs" />
+    <Compile Include="MiGrupo\Weapons\FireGunWeapon.cs" />
+    <Compile Include="MiGrupo\Weapons\MeleeWeapon.cs" />
+    <Compile Include="MiGrupo\Weapons\ThrowableWeapon.cs" />
+    <Compile Include="MiGrupo\Weapons\Weapon.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -112,6 +132,9 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="MiGrupo\Throwables\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

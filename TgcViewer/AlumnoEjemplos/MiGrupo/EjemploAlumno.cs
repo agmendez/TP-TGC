@@ -7,6 +7,14 @@ using Microsoft.DirectX.Direct3D;
 using System.Drawing;
 using Microsoft.DirectX;
 using TgcViewer.Utils.Modifiers;
+using TgcViewer.Utils.TgcSceneLoader;
+using TgcViewer.Utils.TgcGeometry;
+using TgcViewer.Utils.Input;
+using Microsoft.DirectX.DirectInput;
+using TgcViewer.Utils.TgcSkeletalAnimation;
+using TgcViewer.Utils.Terrain;
+using System.Windows.Forms;
+using AlumnoEjemplos.MiGrupo.Weapons;
 
 namespace AlumnoEjemplos.MiGrupo
 {
@@ -19,6 +27,11 @@ namespace AlumnoEjemplos.MiGrupo
         /// Categoría a la que pertenece el ejemplo.
         /// Influye en donde se va a haber en el árbol de la derecha de la pantalla.
         /// </summary>
+        Wall wall;
+        FireGunWeapon weapon;
+        List<Colisionable> collisionableList = new List<Colisionable>();
+        protected Point mouseCenter;
+
         public override string getCategory()
         {
             return "AlumnoEjemplos";
@@ -45,12 +58,16 @@ namespace AlumnoEjemplos.MiGrupo
         /// Escribir aquí todo el código de inicialización: cargar modelos, texturas, modifiers, uservars, etc.
         /// Borrar todo lo que no haga falta
         /// </summary>
+        /// 
         public override void init()
         {
+            Control focusWindows = GuiController.Instance.D3dDevice.CreationParameters.FocusWindow;
+            mouseCenter = focusWindows.PointToScreen(new Point(focusWindows.Width / 2, focusWindows.Height / 2));
+
             //GuiController.Instance: acceso principal a todas las herramientas del Framework
 
             //Device de DirectX para crear primitivas
-            Device d3dDevice = GuiController.Instance.D3dDevice;
+            Microsoft.DirectX.Direct3D.Device d3dDevice = GuiController.Instance.D3dDevice;
 
             //Carpeta de archivos Media del alumno
             string alumnoMediaFolder = GuiController.Instance.AlumnoEjemplosMediaDir;
@@ -69,74 +86,34 @@ namespace AlumnoEjemplos.MiGrupo
             ///////////////MODIFIERS//////////////////
 
             //Crear un modifier para un valor FLOAT
-            GuiController.Instance.Modifiers.addFloat("valorFloat", -50f, 200f, 0f);
+            GuiController.Instance.Modifiers.addFloat("speed", 1f, 100f, 25f);
 
             //Crear un modifier para un ComboBox con opciones
-            string[] opciones = new string[]{"opcion1", "opcion2", "opcion3"};
+            //string[] opciones = new string[]{"SimpleShoot", "ShotgunShoot"};
+            ShootTechnique[] opciones = new ShootTechnique[] { new SimpleShoot(), new ShootgunShoot() };
             GuiController.Instance.Modifiers.addInterval("valorIntervalo", opciones, 0);
 
             //Crear un modifier para modificar un vértice
             GuiController.Instance.Modifiers.addVertex3f("valorVertice", new Vector3(-100, -100, -100), new Vector3(50, 50, 50), new Vector3(0, 0, 0));
 
 
-
-            ///////////////CONFIGURAR CAMARA ROTACIONAL//////////////////
-            //Es la camara que viene por default, asi que no hace falta hacerlo siempre
-            GuiController.Instance.RotCamera.Enable = true;
-            //Configurar centro al que se mira y distancia desde la que se mira
-            GuiController.Instance.RotCamera.setCamera(new Vector3(0, 0, 0), 100);
-
-
-            /*
             ///////////////CONFIGURAR CAMARA PRIMERA PERSONA//////////////////
             //Camara en primera persona, tipo videojuego FPS
-            //Solo puede haber una camara habilitada a la vez. Al habilitar la camara FPS se deshabilita la camara rotacional
-            //Por default la camara FPS viene desactivada
-            GuiController.Instance.FpsCamera.Enable = true;
-            //Configurar posicion y hacia donde se mira
-            GuiController.Instance.FpsCamera.setCamera(new Vector3(0, 0, -20), new Vector3(0, 0, 0));
-            */
+            TgcFpsCameraReloaded cam = new TgcFpsCameraReloaded();
+            cam.setCamera(new Vector3(0, 0, -20), new Vector3(0, 0, 0));
+            GuiController.Instance.CurrentCamera = cam;
 
-
-
-            ///////////////LISTAS EN C#//////////////////
-            //crear
-            List<string> lista = new List<string>();
-
-            //agregar elementos
-            lista.Add("elemento1");
-            lista.Add("elemento2");
-
-            //obtener elementos
-            string elemento1 = lista[0];
-
-            //bucle foreach
-            foreach (string elemento in lista)
-            {
-                //Loggear por consola del Framework
-                GuiController.Instance.Logger.log(elemento);
-            }
-
-            //bucle for
-            for (int i = 0; i < lista.Count; i++)
-            {
-                string element = lista[i];
-            }
-
-
+            wall = new Wall(100, 100);
+            weapon = new FireGunWeapon(new Ball(0.1f, 15));//Las bolas disparadas no tienen porq tener gran detalle
+            //weapon = new Weapon(new Gun("C:\\Users\\martin\\Downloads\\3D Models\\Pistol\\Pistol.obj"),new Ball(10,10));
         }
 
 
-        /// <summary>
-        /// Método que se llama cada vez que hay que refrescar la pantalla.
-        /// Escribir aquí todo el código referido al renderizado.
-        /// Borrar todo lo que no haga falta
-        /// </summary>
-        /// <param name="elapsedTime">Tiempo en segundos transcurridos desde el último frame</param>
+
         public override void render(float elapsedTime)
         {
             //Device de DirectX para renderizar
-            Device d3dDevice = GuiController.Instance.D3dDevice;
+            Microsoft.DirectX.Direct3D.Device d3dDevice = GuiController.Instance.D3dDevice;
 
 
             //Obtener valor de UserVar (hay que castear)
@@ -144,26 +121,43 @@ namespace AlumnoEjemplos.MiGrupo
 
 
             //Obtener valores de Modifiers
-            float valorFloat = (float)GuiController.Instance.Modifiers["valorFloat"];
-            string opcionElegida = (string)GuiController.Instance.Modifiers["valorIntervalo"];
+            weapon.technique = (ShootTechnique)GuiController.Instance.Modifiers["valorIntervalo"];
             Vector3 valorVertice = (Vector3)GuiController.Instance.Modifiers["valorVertice"];
 
 
-            ///////////////INPUT//////////////////
-            //conviene deshabilitar ambas camaras para que no haya interferencia
-
-            //Capturar Input teclado 
-            if (GuiController.Instance.D3dInput.keyPressed(Microsoft.DirectX.DirectInput.Key.F))
-            {
-                //Tecla F apretada
-            }
 
             //Capturar Input Mouse
             if (GuiController.Instance.D3dInput.buttonPressed(TgcViewer.Utils.Input.TgcD3dInput.MouseButtons.BUTTON_LEFT))
             {
-                //Boton izq apretado
+                collisionableList.AddRange(weapon.doAction());
             }
 
+            List<Colisionable> deleteCollisionable = new List<Colisionable>();
+
+            foreach (Colisionable collisionable in collisionableList)
+            {
+                if (collisionable.update(elapsedTime))
+                {
+                    deleteCollisionable.Add(collisionable);
+                }
+                //GuiController.Instance.Logger.log("Pos de Pelota Nueva: " + collisionable.position.ToString());
+            }
+
+            foreach (Colisionable pelota in deleteCollisionable)
+            {
+                collisionableList.Remove(pelota);
+                //GuiController.Instance.Logger.log("Pos de Pelota Nueva: " + pelota.boundingPelota.Center.ToString());
+            }
+
+            wall.render();
+
+            foreach (Colisionable collisionable in collisionableList)
+            {
+                collisionable.render();
+            }
+
+            weapon.update();
+            weapon.render();
         }
 
         /// <summary>
